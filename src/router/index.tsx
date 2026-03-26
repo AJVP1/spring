@@ -1,5 +1,5 @@
 import { createHashRouter } from "react-router-dom";
-import Introduccion from "../pages/Introduccion";
+import { Introduccion } from "../pages/Introduccion";
 
 export const router = createHashRouter([
   {
