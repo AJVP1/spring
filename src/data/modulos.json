@@ -1,0 +1,267 @@
+{
+  "sidebar": [
+    {
+      "title": "Primeros Pasos",
+      "items": [
+        {
+          "to": "/",
+          "label": "Introducción a Spring Boot",
+          "icon": "home",
+          "toc": [
+            { "id": "que-es-spring-boot", "title": "¿Qué es Spring Boot?" },
+            {
+              "id": "ventajas",
+              "title": "Ventajas de Spring Boot"
+            },
+            {
+              "id": "ecosistema-spring",
+              "title": "Ecosistema Spring"
+            },
+            {
+              "id": "primer-proyecto",
+              "title": "Crear primer proyecto"
+            },
+            {
+              "id": "estructura-proyecto",
+              "title": "Estructura del proyecto"
+            }
+          ]
+        },
+        {
+          "to": "/instalacion",
+          "label": "Instalación",
+          "icon": "download",
+          "toc": [
+            { "id": "requisitos", "title": "Requisitos previos" },
+            {
+              "id": "spring-initializr",
+              "title": "Usar Spring Initializr"
+            },
+            {
+              "id": "dependencias",
+              "title": "Seleccionar dependencias"
+            },
+            {
+              "id": "configuracion-inicial",
+              "title": "Configuración inicial"
+            },
+            {
+              "id": "run-app",
+              "title": "Ejecutar aplicación"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Conceptos Básicos",
+      "items": [
+        {
+          "to": "/fundamentos",
+          "label": "Fundamentos",
+          "icon": "code",
+          "toc": [
+            {
+              "id": "inversion-control",
+              "title": "Inversión de control (IoC)"
+            },
+            {
+              "id": "inyeccion-dependencias",
+              "title": "Inyección de dependencias (DI)"
+            },
+            {
+              "id": "beans",
+              "title": "Beans"
+            },
+            {
+              "id": "configuracion",
+              "title": "Configuración (@Configuration)"
+            },
+            {
+              "id": "properties",
+              "title": "application.properties / yml"
+            }
+          ]
+        },
+        {
+          "to": "/web",
+          "label": "Aplicaciones Web",
+          "icon": "language",
+          "toc": [
+            {
+              "id": "controladores",
+              "title": "Controladores (@RestController)"
+            },
+            {
+              "id": "rutas",
+              "title": "Mapping (@GetMapping, etc)"
+            },
+            {
+              "id": "request-response",
+              "title": "Request y Response"
+            },
+            {
+              "id": "validacion",
+              "title": "Validación de datos"
+            },
+            {
+              "id": "manejo-errores",
+              "title": "Manejo de errores"
+            }
+          ]
+        },
+        {
+          "to": "/persistencia",
+          "label": "Persistencia",
+          "icon": "storage",
+          "toc": [
+            {
+              "id": "spring-data-jpa",
+              "title": "Spring Data JPA"
+            },
+            {
+              "id": "entidades",
+              "title": "Entidades (@Entity)"
+            },
+            {
+              "id": "repositorios",
+              "title": "Repositorios"
+            },
+            {
+              "id": "consultas",
+              "title": "Consultas personalizadas"
+            },
+            {
+              "id": "transacciones",
+              "title": "Transacciones"
+            }
+          ]
+        },
+        {
+          "to": "/servicios",
+          "label": "Capa de Servicios",
+          "icon": "build",
+          "toc": [
+            {
+              "id": "service-layer",
+              "title": "¿Qué es la capa de servicio?"
+            },
+            {
+              "id": "logica-negocio",
+              "title": "Lógica de negocio"
+            },
+            {
+              "id": "inyeccion-repositorios",
+              "title": "Uso de repositorios"
+            },
+            {
+              "id": "dto",
+              "title": "DTOs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Avanzado",
+      "items": [
+        {
+          "to": "/seguridad",
+          "label": "Seguridad",
+          "icon": "lock",
+          "toc": [
+            {
+              "id": "spring-security",
+              "title": "Spring Security"
+            },
+            {
+              "id": "autenticacion",
+              "title": "Autenticación"
+            },
+            {
+              "id": "autorizacion",
+              "title": "Autorización"
+            },
+            {
+              "id": "jwt",
+              "title": "JWT"
+            },
+            {
+              "id": "roles-permisos",
+              "title": "Roles y permisos"
+            }
+          ]
+        },
+        {
+          "to": "/testing",
+          "label": "Testing",
+          "icon": "science",
+          "toc": [
+            {
+              "id": "test-unitarios",
+              "title": "Tests unitarios"
+            },
+            {
+              "id": "test-integracion",
+              "title": "Tests de integración"
+            },
+            {
+              "id": "mockito",
+              "title": "Mockito"
+            },
+            {
+              "id": "spring-test",
+              "title": "Spring Test"
+            }
+          ]
+        },
+        {
+          "to": "/api",
+          "label": "APIs REST",
+          "icon": "api",
+          "toc": [
+            {
+              "id": "diseno-api",
+              "title": "Diseño de APIs"
+            },
+            {
+              "id": "versionado",
+              "title": "Versionado"
+            },
+            {
+              "id": "documentacion",
+              "title": "Swagger / OpenAPI"
+            },
+            {
+              "id": "paginacion",
+              "title": "Paginación y filtros"
+            }
+          ]
+        },
+        {
+          "to": "/deploy",
+          "label": "Despliegue",
+          "icon": "rocket_launch",
+          "toc": [
+            {
+              "id": "build",
+              "title": "Build con Maven/Gradle"
+            },
+            {
+              "id": "docker",
+              "title": "Dockerizar la app"
+            },
+            {
+              "id": "variables-entorno",
+              "title": "Variables de entorno"
+            },
+            {
+              "id": "deploy-cloud",
+              "title": "Deploy en la nube"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
