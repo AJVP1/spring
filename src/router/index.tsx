@@ -20,40 +20,40 @@ export const router = createHashRouter([
   },
   {
     path: "/web",
-    lazy: async () => ({ Component: (await import("../pages/Web")).default }),
+    lazy: async () => ({ Component: (await import("../pages/Web")).Web }),
   },
   {
     path: "/persistencia",
     lazy: async () => ({
-      Component: (await import("../pages/Persistencia")).default,
+      Component: (await import("../pages/Persistencia")).Persistencia,
     }),
   },
   {
     path: "/servicios",
     lazy: async () => ({
-      Component: (await import("../pages/Servicios")).default,
+      Component: (await import("../pages/Servicios")).Servicios,
     }),
   },
   {
     path: "/seguridad",
     lazy: async () => ({
-      Component: (await import("../pages/Seguridad")).default,
+      Component: (await import("../pages/Seguridad")).Seguridad,
     }),
   },
   {
     path: "/testing",
     lazy: async () => ({
-      Component: (await import("../pages/Testing")).default,
+      Component: (await import("../pages/Testing")).Testing,
     }),
   },
   {
     path: "/api",
-    lazy: async () => ({ Component: (await import("../pages/Api")).default }),
+    lazy: async () => ({ Component: (await import("../pages/Api")).Api }),
   },
   {
     path: "/deploy",
     lazy: async () => ({
-      Component: (await import("../pages/Deploy")).default,
+      Component: (await import("../pages/Deploy")).Deploy,
     }),
   },
 ]);
