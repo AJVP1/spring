@@ -9,13 +9,13 @@ export const router = createHashRouter([
   {
     path: "/instalacion",
     lazy: async () => ({
-      Component: (await import("../pages/Instalacion")).default,
+      Component: (await import("../pages/Instalacion")).Instalacion,
     }),
   },
   {
     path: "/fundamentos",
     lazy: async () => ({
-      Component: (await import("../pages/Fundamentos")).default,
+      Component: (await import("../pages/Fundamentos")).Fundamentos,
     }),
   },
   {
