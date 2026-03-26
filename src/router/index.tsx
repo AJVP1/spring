@@ -1,11 +1,10 @@
 import { createHashRouter } from "react-router-dom";
+import Introduccion from "../pages/Introduccion";
 
 export const router = createHashRouter([
   {
     path: "/",
-    lazy: async () => ({
-      Component: (await import("../pages/Introduccion")).default,
-    }),
+    element: <Introduccion />,
   },
   {
     path: "/instalacion",
