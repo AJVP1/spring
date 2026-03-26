@@ -30,7 +30,7 @@ const primerEjemploCode = `<span class="keyword">import</span> <span class="stri
 <span class="keyword">public class</span> <span class="string">HolaController</span> {
 
     <span class="keyword">@GetMapping</span>(<span class="string">"/hola"</span>)
-    <span class="keyword">public</span> <span class="string">String</span> saludar() {
+    <span class="keyword">public</span> <span class="string">String</span> <span class="function">saludar</span>() {
         <span class="keyword">return</span> <span class="string">"Hola Spring Boot"</span>;
     }
 }`;
