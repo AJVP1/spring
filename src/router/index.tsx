@@ -35,6 +35,12 @@ export const router = createHashRouter([
     }),
   },
   {
+    path: "/estructura",
+    lazy: async () => ({
+      Component: (await import("../pages/Estructura")).Estructura,
+    }),
+  },
+  {
     path: "/seguridad",
     lazy: async () => ({
       Component: (await import("../pages/Seguridad")).Seguridad,
@@ -55,5 +61,9 @@ export const router = createHashRouter([
     lazy: async () => ({
       Component: (await import("../pages/Deploy")).Deploy,
     }),
+  },
+  {
+    path: "/*",
+    element: <h1>404 - Página no encontrada</h1>,
   },
 ]);
