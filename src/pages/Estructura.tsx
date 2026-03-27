@@ -39,46 +39,80 @@ const estructuraProyectoCode = `mi-app/
 ├── pom.xml
 └── mvnw`;
 
-const entityCode = `<span class="keyword">@Entity</span>
+const entityCode = `<span class="keyword">import</span> <span class="string">jakarta.persistence.*</span>;
+
+<span class="keyword">@Entity</span>
+<span class="keyword">@Table</span>(name = <span class="string">"usuarios"</span>)
 <span class="keyword">public class</span> <span class="string">Usuario</span> {
+
     <span class="keyword">@Id</span>
-    <span class="keyword">@GeneratedValue</span>
+    <span class="keyword">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)
     <span class="keyword">private</span> <span class="string">Long</span> id;
 
+    <span class="keyword">@Column</span>(nullable = false, length = 100)
     <span class="keyword">private</span> <span class="string">String</span> nombre;
+
+    <span class="keyword">@Column</span>(unique = true, nullable = false, length = 150)
     <span class="keyword">private</span> <span class="string">String</span> email;
+
+    <span class="comment">// getters y setters</span>
 }`;
 
-const dtoCode = `<span class="keyword">public class</span> <span class="string">UsuarioRequest</span> {
-    <span class="keyword">private</span> <span class="string">String</span> nombre;
-    <span class="keyword">private</span> <span class="string">String</span> email;
-}
+const dtoCode = `<span class="keyword">public record</span> <span class="string">UsuarioRequest</span>(
+    <span class="string">String</span> nombre,
+    <span class="string">String</span> email
+) {}
 
-<span class="keyword">public class</span> <span class="string">UsuarioResponse</span> {
-    <span class="keyword">private</span> <span class="string">Long</span> id;
-    <span class="keyword">private</span> <span class="string">String</span> nombre;
-    <span class="keyword">private</span> <span class="string">String</span> email;
-}`;
+<span class="keyword">public record</span> <span class="string">UsuarioResponse</span>(
+    <span class="string">Long</span> id,
+    <span class="string">String</span> nombre,
+    <span class="string">String</span> email
+) {}`;
 
-const repositoryCode = `<span class="keyword">public interface</span> <span class="string">UsuarioRepository</span>
+const repositoryCode = `<span class="keyword">import</span> <span class="string">org.springframework.data.jpa.repository.JpaRepository</span>;
+<span class="keyword">import</span> <span class="string">java.util.Optional</span>;
+
+<span class="keyword">public interface</span> <span class="string">UsuarioRepository</span>
     <span class="keyword">extends</span> <span class="string">JpaRepository</span>&lt;<span class="string">Usuario</span>, <span class="string">Long</span>&gt; {
+
+    <span class="string">Optional&lt;Usuario&gt;</span> <span class="function">findByEmail</span>(<span class="string">String</span> email);
 }`;
 
-const serviceCode = `<span class="keyword">@Service</span>
+const serviceCode = `<span class="keyword">import</span> <span class="string">org.springframework.stereotype.Service</span>;
+<span class="keyword">import</span> <span class="string">java.util.List</span>;
+
+<span class="keyword">@Service</span>
 <span class="keyword">public class</span> <span class="string">UsuarioService</span> {
 
     <span class="keyword">private final</span> <span class="string">UsuarioRepository</span> usuarioRepository;
+    <span class="keyword">private final</span> <span class="string">UsuarioMapper</span> usuarioMapper;
 
-    <span class="keyword">public</span> <span class="string">UsuarioService</span>(<span class="string">UsuarioRepository</span> usuarioRepository) {
+    <span class="keyword">public</span> <span class="string">UsuarioService</span>(
+        <span class="string">UsuarioRepository</span> usuarioRepository,
+        <span class="string">UsuarioMapper</span> usuarioMapper
+    ) {
         <span class="keyword">this</span>.usuarioRepository = usuarioRepository;
+        <span class="keyword">this</span>.usuarioMapper = usuarioMapper;
     }
 
-    <span class="keyword">public</span> <span class="string">List&lt;Usuario&gt;</span> listar() {
-        <span class="keyword">return</span> usuarioRepository.findAll();
+    <span class="keyword">public</span> <span class="string">List&lt;UsuarioResponse&gt;</span> <span class="function">listar</span>() {
+        <span class="keyword">return</span> usuarioRepository.findAll()
+            .stream()
+            .map(usuarioMapper::<span class="function">toResponse</span>)
+            .toList();
+    }
+
+    <span class="keyword">public</span> <span class="string">UsuarioResponse</span> <span class="function">guardar</span>(<span class="string">UsuarioRequest</span> request) {
+        <span class="string">Usuario</span> usuario = usuarioMapper.toEntity(request);
+        <span class="keyword">return</span> usuarioMapper.toResponse(usuarioRepository.save(usuario));
     }
 }`;
 
-const controllerCode = `<span class="keyword">@RestController</span>
+const controllerCode = `<span class="keyword">import</span> <span class="string">org.springframework.http.ResponseEntity</span>;
+<span class="keyword">import</span> <span class="string">org.springframework.web.bind.annotation.*</span>;
+<span class="keyword">import</span> <span class="string">java.util.List</span>;
+
+<span class="keyword">@RestController</span>
 <span class="keyword">@RequestMapping</span>(<span class="string">"/api/usuarios"</span>)
 <span class="keyword">public class</span> <span class="string">UsuarioController</span> {
 
@@ -89,27 +123,35 @@ const controllerCode = `<span class="keyword">@RestController</span>
     }
 
     <span class="keyword">@GetMapping</span>
-    <span class="keyword">public</span> <span class="string">List&lt;UsuarioResponse&gt;</span> listar() {
-        <span class="comment">// convertir entidades a DTOs antes de responder</span>
-        <span class="keyword">return</span> List.of();
+    <span class="keyword">public</span> <span class="string">ResponseEntity&lt;List&lt;UsuarioResponse&gt;&gt;</span> <span class="function">listar</span>() {
+        <span class="keyword">return</span> ResponseEntity.ok(usuarioService.listar());
+    }
+
+    <span class="keyword">@PostMapping</span>
+    <span class="keyword">public</span> <span class="string">ResponseEntity&lt;UsuarioResponse&gt;</span> <span class="function">crear</span>(
+        <span class="keyword">@RequestBody</span> <span class="string">UsuarioRequest</span> request
+    ) {
+        <span class="keyword">return</span> ResponseEntity.ok(usuarioService.guardar(request));
     }
 }`;
 
-const mapperCode = `<span class="keyword">@Component</span>
+const mapperCode = `<span class="keyword">import</span> <span class="string">org.springframework.stereotype.Component</span>;
+
+<span class="keyword">@Component</span>
 <span class="keyword">public class</span> <span class="string">UsuarioMapper</span> {
 
-    <span class="keyword">public</span> <span class="string">UsuarioResponse</span> toResponse(<span class="string">Usuario</span> usuario) {
-        <span class="string">UsuarioResponse</span> response = <span class="keyword">new</span> <span class="string">UsuarioResponse</span>();
-        response.setId(usuario.getId());
-        response.setNombre(usuario.getNombre());
-        response.setEmail(usuario.getEmail());
-        <span class="keyword">return</span> response;
+    <span class="keyword">public</span> <span class="string">UsuarioResponse</span> <span class="function">toResponse</span>(<span class="string">Usuario</span> usuario) {
+        <span class="keyword">return new</span> <span class="string">UsuarioResponse</span>(
+            usuario.getId(),
+            usuario.getNombre(),
+            usuario.getEmail()
+        );
     }
 
-    <span class="keyword">public</span> <span class="string">Usuario</span> toEntity(<span class="string">UsuarioRequest</span> request) {
+    <span class="keyword">public</span> <span class="string">Usuario</span> <span class="function">toEntity</span>(<span class="string">UsuarioRequest</span> request) {
         <span class="string">Usuario</span> usuario = <span class="keyword">new</span> <span class="string">Usuario</span>();
-        usuario.setNombre(request.getNombre());
-        usuario.setEmail(request.getEmail());
+        usuario.setNombre(request.nombre());
+        usuario.setEmail(request.email());
         <span class="keyword">return</span> usuario;
     }
 }`;
