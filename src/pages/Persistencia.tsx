@@ -4,19 +4,18 @@ import modulosData from "../data/modulos.json";
 import Note from "../components/Notes.tsx";
 import Codeblock from "../components/Codeblock.tsx";
 
-const entityCode = `<span class="keyword">import</span> <span class="string">jakarta.persistence.Entity</span>;
-<span class="keyword">import</span> <span class="string">jakarta.persistence.GeneratedValue</span>;
-<span class="keyword">import</span> <span class="string">jakarta.persistence.GenerationType</span>;
-<span class="keyword">import</span> <span class="string">jakarta.persistence.Id</span>;
-
-<span class="keyword">@Entity</span>
+const entityCode = `<span class="keyword">@Entity</span>
+<span class="keyword">@Table</span>(name = "usuarios")
 <span class="keyword">public class</span> <span class="string">Usuario</span> {
 
     <span class="keyword">@Id</span>
     <span class="keyword">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)
     <span class="keyword">private</span> <span class="string">Long</span> id;
 
+    <span class="keyword">@Column</span>(name = "nombre", nullable = false, length = 100)
     <span class="keyword">private</span> <span class="string">String</span> nombre;
+
+    <span class="keyword">@Column</span>(name = "email", unique = true, length = 100)
     <span class="keyword">private</span> <span class="string">String</span> email;
 
     <span class="comment">// getters y setters</span>
@@ -78,11 +77,14 @@ const transactionCode = `<span class="keyword">import</span> <span class="string
     }
 }`;
 
-const propertiesCode = `spring.datasource.url=jdbc:postgresql://localhost:5432/mi_app
-spring.datasource.username=postgres
-spring.datasource.password=secret
+const propertiesCode = `spring.datasource.driver-class-name=org.postgresql.Driver
+spring.datasource.url=jdbc:postgresqlo://localhost:5432/database-name.db
+spring.datasource.username=user
+spring.datasource.password=password
+
 spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true`;
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true`;
 
 export const Persistencia = () => {
   return (
@@ -131,6 +133,13 @@ export const Persistencia = () => {
         aplicación a una base de datos PostgreSQL y habilitar opciones comunes
         de JPA.
       </p>
+
+      <Note title="Tip">
+        Al momento de hacer la configuración con Spring Initializr, debemos
+        escoger las dependencias de "Spring Data JPA", "PostgreSQL Driver" y
+        "Docker Compose Support" para tener todo listo para trabajar con
+        persistencia y contenedores.
+      </Note>
 
       <h2
         id="entidades"
