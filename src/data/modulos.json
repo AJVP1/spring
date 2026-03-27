@@ -167,6 +167,7 @@
           "toc": [
             { "id": "vision-general", "title": "Visión general" },
             { "id": "estructura-base", "title": "Estructura base" },
+            { "id": "flujo", "title": "Como se relacionan las partes" },
             { "id": "entity", "title": "entity" },
             { "id": "dto", "title": "dto" },
             { "id": "repository", "title": "repository" },

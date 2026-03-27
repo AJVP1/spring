@@ -234,6 +234,65 @@ export const Estructura = () => {
       </p>
 
       <h2
+        id="flujo"
+        className="text-2xl font-bold mt-12 mb-4 text-[#141414] scroll-mt-20"
+      >
+        Cómo se relacionan las partes
+      </h2>
+
+      <p className="text-base leading-7 text-[#141414] my-6">
+        Cada capa tiene una responsabilidad concreta y se comunica con la
+        siguiente de forma ordenada. Cuando llega una petición HTTP, el flujo
+        típico es:
+      </p>
+
+      <div className="my-8 flex flex-col gap-3">
+        {[
+          {
+            step: "1",
+            layer: "Controller",
+            desc: "Recibe la petición HTTP y delega al servicio.",
+          },
+          {
+            step: "2",
+            layer: "Service",
+            desc: "Aplica la lógica de negocio y usa el repositorio para acceder a datos.",
+          },
+          {
+            step: "3",
+            layer: "Repository",
+            desc: "Ejecuta la consulta o escritura en la base de datos.",
+          },
+          {
+            step: "4",
+            layer: "Mapper",
+            desc: "Convierte la entidad devuelta en un DTO de respuesta.",
+          },
+          {
+            step: "5",
+            layer: "Controller",
+            desc: "Devuelve el DTO al cliente como respuesta HTTP.",
+          },
+        ].map(({ step, layer, desc }) => (
+          <div key={step} className="flex items-start gap-4">
+            <span className="shrink-0 w-8 h-8 rounded-full bg-[#141414] text-white text-sm font-bold flex items-center justify-center">
+              {step}
+            </span>
+            <div className="flex-1 border border-[#f2f2f2] rounded-xl px-4 py-3">
+              <span className="font-semibold text-[#141414]">{layer}</span>
+              <span className="text-[#757575]"> — {desc}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <Note title="Regla útil">
+        El controlador nunca accede directamente al repositorio, y el
+        repositorio no conoce la lógica de negocio. Cada capa solo habla con
+        la que tiene al lado.
+      </Note>
+
+      <h2
         id="entity"
         className="text-2xl font-bold mt-12 mb-4 text-[#141414] scroll-mt-20"
       >
