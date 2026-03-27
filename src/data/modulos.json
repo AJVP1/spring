@@ -159,6 +159,22 @@
               "title": "DTOs"
             }
           ]
+        },
+        {
+          "to": "/estructura",
+          "label": "Estructura de proyecto",
+          "icon": "folder",
+          "toc": [
+            { "id": "vision-general", "title": "Visión general" },
+            { "id": "estructura-base", "title": "Estructura base" },
+            { "id": "entity", "title": "entity" },
+            { "id": "dto", "title": "dto" },
+            { "id": "repository", "title": "repository" },
+            { "id": "service", "title": "service" },
+            { "id": "controller", "title": "controller" },
+            { "id": "mapper", "title": "mapper" },
+            { "id": "otras-carpetas", "title": "Otras carpetas útiles" }
+          ]
         }
       ]
     },
