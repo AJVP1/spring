@@ -1,4 +1,4 @@
-import{a as e,i as t,n,o as r,r as i,t as a}from"./index-Dt8U_ycJ.js";var o=r(),s=`java -version`,c=`Project: Maven o Gradle
+import{a as e,i as t,n,o as r,r as i,t as a}from"./index-ByLeivlo.js";var o=r(),s=`java -version`,c=`Project: Maven o Gradle
 Language: Java
 Spring Boot: versión estable
 Group: com.ejemplo

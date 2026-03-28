@@ -1,4 +1,4 @@
-import{a as e,i as t,n,o as r,r as i,t as a}from"./index-Dt8U_ycJ.js";var o=r(),s=`<span class="keyword">@Entity</span>
+import{a as e,i as t,n,o as r,r as i,t as a}from"./index-ByLeivlo.js";var o=r(),s=`<span class="keyword">@Entity</span>
 <span class="keyword">@Table</span>(name = "usuarios")
 <span class="keyword">public class</span> <span class="string">Usuario</span> {
 

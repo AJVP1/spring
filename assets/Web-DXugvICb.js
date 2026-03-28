@@ -1,4 +1,4 @@
-import{a as e,i as t,n,o as r,r as i,t as a}from"./index-Dt8U_ycJ.js";var o=r(),s=`<span class="keyword">import</span> <span class="string">org.springframework.web.bind.annotation.RestController</span>;
+import{a as e,i as t,n,o as r,r as i,t as a}from"./index-ByLeivlo.js";var o=r(),s=`<span class="keyword">import</span> <span class="string">org.springframework.web.bind.annotation.RestController</span>;
 <span class="keyword">import</span> <span class="string">org.springframework.web.bind.annotation.RequestMapping</span>;
 
 <span class="keyword">@RestController</span>

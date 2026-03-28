@@ -1,4 +1,4 @@
-import{a as e,i as t,n,o as r,r as i,t as a}from"./index-Dt8U_ycJ.js";var o=r(),s=`<span class="keyword">import</span> <span class="string">org.springframework.stereotype.Service</span>;
+import{a as e,i as t,n,o as r,r as i,t as a}from"./index-ByLeivlo.js";var o=r(),s=`<span class="keyword">import</span> <span class="string">org.springframework.stereotype.Service</span>;
 
 <span class="keyword">@Service</span>
 <span class="keyword">public class</span> <span class="string">UsuarioService</span> {

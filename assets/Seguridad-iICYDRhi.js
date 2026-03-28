@@ -1,4 +1,4 @@
-import{a as e,i as t,n,o as r,r as i,t as a}from"./index-Dt8U_ycJ.js";var o=r(),s=`<span class="keyword">import</span> <span class="string">org.springframework.context.annotation.Bean</span>;
+import{a as e,i as t,n,o as r,r as i,t as a}from"./index-ByLeivlo.js";var o=r(),s=`<span class="keyword">import</span> <span class="string">org.springframework.context.annotation.Bean</span>;
 <span class="keyword">import</span> <span class="string">org.springframework.context.annotation.Configuration</span>;
 <span class="keyword">import</span> <span class="string">org.springframework.security.config.annotation.web.builders.HttpSecurity</span>;
 <span class="keyword">import</span> <span class="string">org.springframework.security.web.SecurityFilterChain</span>;
