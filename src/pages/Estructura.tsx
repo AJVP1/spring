@@ -135,25 +135,28 @@ const controllerCode = `<span class="keyword">import</span> <span class="string"
     }
 }`;
 
-const mapperCode = `<span class="keyword">import</span> <span class="string">org.springframework.stereotype.Component</span>;
+const mappingNombresCode = `<span class="keyword">@Mapping</span>(source = <span class="string">"nombre"</span>, target = <span class="string">"fullName"</span>)
+<span class="string">UsuarioResponse</span> <span class="function">toResponse</span>(<span class="string">Usuario</span> usuario);`;
 
-<span class="keyword">@Component</span>
-<span class="keyword">public class</span> <span class="string">UsuarioMapper</span> {
+const mappingAnidadoCode = `<span class="keyword">@Mapping</span>(source = <span class="string">"direccion.ciudad"</span>, target = <span class="string">"ciudad"</span>)
+<span class="string">UsuarioResponse</span> <span class="function">toResponse</span>(<span class="string">Usuario</span> usuario);`;
 
-    <span class="keyword">public</span> <span class="string">UsuarioResponse</span> <span class="function">toResponse</span>(<span class="string">Usuario</span> usuario) {
-        <span class="keyword">return new</span> <span class="string">UsuarioResponse</span>(
-            usuario.getId(),
-            usuario.getNombre(),
-            usuario.getEmail()
-        );
-    }
+const mappingIgnorarCode = `<span class="keyword">@Mapping</span>(target = <span class="string">"password"</span>, ignore = <span class="keyword">true</span>)
+<span class="string">UsuarioResponse</span> <span class="function">toResponse</span>(<span class="string">Usuario</span> usuario);`;
 
-    <span class="keyword">public</span> <span class="string">Usuario</span> <span class="function">toEntity</span>(<span class="string">UsuarioRequest</span> request) {
-        <span class="string">Usuario</span> usuario = <span class="keyword">new</span> <span class="string">Usuario</span>();
-        usuario.setNombre(request.nombre());
-        usuario.setEmail(request.email());
-        <span class="keyword">return</span> usuario;
-    }
+const mappingExpresionCode = `<span class="keyword">@Mapping</span>(target = <span class="string">"activo"</span>, constant = <span class="string">"true"</span>)
+<span class="keyword">@Mapping</span>(target = <span class="string">"creadoEn"</span>, expression = <span class="string">"java(java.time.LocalDate.now())"</span>)
+<span class="string">UsuarioResponse</span> <span class="function">toResponse</span>(<span class="string">Usuario</span> usuario);`;
+
+const mapperCode = `<span class="keyword">import</span> <span class="string">org.mapstruct.Mapper</span>;
+<span class="keyword">import</span> <span class="string">org.mapstruct.MappingConstants</span>;
+
+<span class="keyword">@Mapper</span>(componentModel = MappingConstants.ComponentModel.SPRING)
+<span class="keyword">public interface</span> <span class="string">UsuarioMapper</span> {
+
+    <span class="string">UsuarioResponse</span> <span class="function">toResponse</span>(<span class="string">Usuario</span> usuario);
+
+    <span class="string">Usuario</span> <span class="function">toEntity</span>(<span class="string">UsuarioRequest</span> request);
 }`;
 
 export const Estructura = () => {
@@ -440,17 +443,63 @@ export const Estructura = () => {
           mapper
         </code>{" "}
         es útil cuando quieres separar la conversión entre entidades y DTOs.
-        Esto evita repetir la misma lógica de transformación en controladores o
-        servicios.
+        Con{" "}
+        <code className="bg-[#f7f7f7] px-1.5 py-0.5 rounded text-sm">
+          MapStruct
+        </code>{" "}
+        basta con declarar una interfaz anotada con{" "}
+        <code className="bg-[#f7f7f7] px-1.5 py-0.5 rounded text-sm">
+          @Mapper
+        </code>{" "}
+        y el procesador de anotaciones genera la implementación en tiempo de compilación.
       </p>
 
       <Codeblock code={mapperCode} title="UsuarioMapper.java" />
 
       <p className="text-base leading-7 text-[#141414] my-6">
-        En proyectos pequeños esta conversión puede hacerse dentro del servicio,
-        pero cuando el dominio crece conviene dedicar una clase específica a ese
-        trabajo.
+        MapStruct infiere el mapeo automáticamente cuando los nombres de los
+        campos coinciden. El parámetro{" "}
+        <code className="bg-[#f7f7f7] px-1.5 py-0.5 rounded text-sm">
+          componentModel = SPRING
+        </code>{" "}
+        hace que el mapper sea un bean inyectable directamente en el servicio.
       </p>
+
+      <h3
+        id="mapping-annotation"
+        className="text-xl font-bold mt-10 mb-4 text-[#141414] scroll-mt-20"
+      >
+        Cuándo usar <code className="text-lg">@Mapping</code>
+      </h3>
+
+      <p className="text-base leading-7 text-[#141414] my-6">
+        Cuando los nombres de los campos coinciden y los tipos son compatibles,
+        no necesitas nada extra. En cuanto algo difiere, entra{" "}
+        <code className="bg-[#f7f7f7] px-1.5 py-0.5 rounded text-sm">
+          @Mapping
+        </code>
+        .
+      </p>
+
+      <p className="text-base leading-7 text-[#141414] mt-6 mb-2 font-semibold">
+        Nombres de campo distintos
+      </p>
+      <Codeblock code={mappingNombresCode} title="UsuarioMapper.java" />
+
+      <p className="text-base leading-7 text-[#141414] mt-6 mb-2 font-semibold">
+        Campos anidados
+      </p>
+      <Codeblock code={mappingAnidadoCode} title="UsuarioMapper.java" />
+
+      <p className="text-base leading-7 text-[#141414] mt-6 mb-2 font-semibold">
+        Ignorar un campo
+      </p>
+      <Codeblock code={mappingIgnorarCode} title="UsuarioMapper.java" />
+
+      <p className="text-base leading-7 text-[#141414] mt-6 mb-2 font-semibold">
+        Valor constante o expresión Java
+      </p>
+      <Codeblock code={mappingExpresionCode} title="UsuarioMapper.java" />
 
       <h2
         id="otras-carpetas"
